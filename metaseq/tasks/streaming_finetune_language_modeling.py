@@ -159,10 +159,10 @@ class StreamingFinetuneLanguageModelingTask(LegacyTask):
         src = json["src"].rstrip(" ")
         tgt = json["tgt"].rstrip()
         full_tokens = torch.LongTensor(
+            [self.eod] +
             self.tokenizer.encode(
                 " ".join([src, tgt])
             ).ids
-            + [self.eod]
         )
         src_tokens_len = len(self.tokenizer.encode(src).ids)
         tgt_tokens = torch.clone(full_tokens)
